@@ -5,11 +5,13 @@ Square[][] board;
 
 void setup() {
   board = new Square[8][8];
-  for(int row = 0; row < 8; row++) {
-    for(int col = 0; col < 8; col++) { 
-      board[row][col] = new Square(row,col);
+  for(int row = 1; row <= 8; row++) {
+    for(int col = 1; col <= 8; col++) { 
+      board[row-1][col-1] = new Square(row,col,null);
     }
   }
+  board[1][1].piece = new Pawn(board[1][1],true);
+  println(board[1][1].piece.isDark);
   size(512,512);
   frame.setResizable(true);
   
@@ -30,7 +32,15 @@ void draw() {
         fill(darkcolor[0],darkcolor[1],darkcolor[2]);
       else if(board[row][col].isLight)
         fill(lightcolor[0],lightcolor[1],lightcolor[2]);
-      rect(row*inc,col*inc,inc,inc);  
+      
+      rect(row*inc,col*inc,inc,inc); 
+      if(board[row][col].piece != null) {
+        if(board[row][col].piece.isDark)
+          fill(0);
+        else
+          fill(255);
+        rect(row*inc + (inc/4),col*inc + (inc/4),inc/2,inc/2);
+      }
       counter++;
     }
   }   

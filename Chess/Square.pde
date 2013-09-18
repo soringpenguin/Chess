@@ -5,11 +5,13 @@ class Square {
   int row;
   int col;
   int[] COLOR;
+  Piece piece;
   
   
   
-  public Square(int row, char col) {
+  public Square(int row, char col, Piece piece) {
   
+    this.piece = piece;
     this.row = row;
     this.col = (int)col;
     COLOR = new int[4];
@@ -17,8 +19,9 @@ class Square {
     
   }
   
-  public Square(int row, int col) {
+  public Square(int row, int col, Piece piece) {
   
+    this.piece = piece;
     this.row = row;
     this.col = col;
     COLOR = new int[4];
