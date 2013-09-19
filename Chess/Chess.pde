@@ -2,6 +2,7 @@
 int[] darkcolor = {181,136,99,0};
 int[] lightcolor = {240,217,181,0};
 Square[][] board;
+PImage pawnImage;
 
 void setup() {
   board = new Square[8][8];
@@ -10,6 +11,7 @@ void setup() {
       board[row-1][col-1] = new Square(row,col,null);
     }
   }
+  pawnImage = loadImage("pion_black.png");
   board[1][1].piece = new Pawn(board[1][1],true);
   println(board[1][1].piece.isDark);
   size(512,512);
@@ -36,12 +38,11 @@ void draw() {
       rect(row*inc,col*inc,inc,inc); 
       if(board[row][col].piece != null) {
         if(board[row][col].piece.isDark)
-          fill(0);
+          image(pawnImage,row*inc,col*inc); 
         else
           fill(255);
-        rect(row*inc + (inc/4),col*inc + (inc/4),inc/2,inc/2);
       }
       counter++;
     }
-  }   
+  }  
 }
