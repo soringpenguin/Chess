@@ -22,7 +22,7 @@ public abstract class Piece {
    * will return true if the move was succesful
    * but will return false if the move was not */
   public boolean move(int row, int col) {
-    if(isLegalMove(square,row,col)) {
+    if(isLegalMove(this.square,row,col)) {
       this.square = board[row][col]; // Assign the new Square to the Piece object
       return true; // The move was succesful
     }
