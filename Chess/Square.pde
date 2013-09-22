@@ -7,8 +7,6 @@ class Square {
   int[] COLOR;
   Piece piece;
   
-  
-  
   public Square(int row, char col, Piece piece) {
   
     this.piece = piece;
