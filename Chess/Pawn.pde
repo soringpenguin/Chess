@@ -1,13 +1,16 @@
 public class Pawn extends Piece {
   
-  public Pawn(Square square, boolean isDark) {
-   super(square,isDark); 
+  public Pawn(boolean isDark) {
+   super(isDark); 
   }
   
-  public boolean isLegalMove(Square square,int row, int col) {
+  public boolean isLegalMove(int row, int col) {
    if(isDark) {
      // Check if the pawn is trying to move 1 space forward
      // And the space in front of the pawn is empty
+     println(square.row-1);
+     println(row + ", " + col);
+     println(board.isSquareEmpty(row,col));
      if(square.row-1 == row && board.isSquareEmpty(row,col)) {
        return true;
      }

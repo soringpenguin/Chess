@@ -2,32 +2,40 @@
 int[] darkcolor = {181,136,99,0};
 int[] lightcolor = {240,217,181,0};
 Board board;
+Square selectedSquare;
+PImage pawnImage;
+int inc;
 
 void setup() {
   size(512,512);
   frame.setResizable(true);
-  
+  selectedSquare = null;
+  board = new Board();
 }
 
 void draw() {
  
   background(255);
   
-  int inc = width/8;
+  inc = width/board.numRows; //  Assuming that we are working with a square
   if(height < width)
-    inc = height/8;
+    inc = height/board.numRows;
     
   int counter = 0;
-  for(int row = 0; row < 8; row++) {
-    for(int col = 0; col < 8; col++) {
-      if(board[row][col].isDark)
+  for(int row = 0; row < board.numRows; row++) {
+    for(int col = 0; col < board.numCols; col++) {
+      if(board.board[row][col].isDark)
         fill(darkcolor[0],darkcolor[1],darkcolor[2]);
-      else if(board[row][col].isLight)
+      else if(board.board[row][col].isLight)
         fill(lightcolor[0],lightcolor[1],lightcolor[2]);
       
+      if(board.board[row][col].equals(selectedSquare))
+        stroke(5);
+      else
+        stroke(1);
       rect(row*inc,col*inc,inc,inc); 
-      if(board[row][col].piece != null) {
-        if(board[row][col].piece.isDark)
+      if(board.board[row][col].piece != null) {
+        if(board.board[row][col].piece.isDark)
           image(pawnImage,row*inc,col*inc); 
         else
           fill(255);
@@ -35,4 +43,30 @@ void draw() {
       counter++;
     }
   }  
+}
+
+
+void mousePressed() {
+  int row = mouseY / (board.numRows * 8) + 1;
+  int col = mouseX / (board.numCols * 8) + 1;
+  
+  // If trying to make a move
+  if(selectedSquare != null) {
+    if(selectedSquare.piece.move(row,col))
+      selectedSquare = null;
+    else
+      println("move failed");
+  }
+  // If just selecting a piece to move
+  else {
+    if(board.getSquare(row,col).piece != null) {
+      println("Piece selected at " + row + "," + col);
+      selectedSquare = board.getSquare(row,col);
+    }
+    else {
+      println("square selected is empty");
+    }
+  }
+  
+  
 }

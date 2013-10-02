@@ -1,10 +1,10 @@
 public class Knight extends Piece {
   
-  public Knight(Square square, boolean isDark) {
-   super(square,isDark); 
+  public Knight(boolean isDark) {
+   super(isDark); 
   }
   
-  public boolean isLegalMove(Square square,int row, int col) {
+  public boolean isLegalMove(int row, int col) {
    return true; 
   }
   
