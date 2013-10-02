@@ -14,6 +14,6 @@ public abstract class Piece {
   
   /* Will determine if the piece can be moved to the given square
    * It is abstract because legal moves will depend on kind of piece */
-  public abstract boolean isLegalMove(int row,int col);
+  public abstract boolean isLegalMove(int fRow, int fCol, int row,int col);
   
 }

@@ -30,16 +30,17 @@ void draw() {
         fill(lightcolor[0],lightcolor[1],lightcolor[2]);
       
       if(board.board[row][col].equals(selectedSquare))
-        stroke(5);
+        strokeWeight(5);
       else
-        stroke(1);
-      rect(row*inc,col*inc,inc,inc); 
+        strokeWeight(1);
+      rect(col*inc,row*inc,inc,inc);
       if(board.board[row][col].piece != null) {
         if(board.board[row][col].piece.isDark)
-          image(pawnImage,row*inc,col*inc); 
+          fill(0,128);
         else
           fill(255);
       }
+      rect(col*inc,row*inc,inc,inc);
       counter++;
     }
   }  
@@ -52,7 +53,7 @@ void mousePressed() {
   
   // If trying to make a move
   if(selectedSquare != null) {
-    if(selectedSquare.piece.move(row,col))
+    if(board.move(selectedSquare.row, selectedSquare.col,row,col))
       selectedSquare = null;
     else
       println("move failed");

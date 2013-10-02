@@ -4,7 +4,7 @@ public class Knight extends Piece {
    super(isDark); 
   }
   
-  public boolean isLegalMove(int row, int col) {
+  public boolean isLegalMove(int fRow, int fCol, int row, int col) {
    return true; 
   }
   

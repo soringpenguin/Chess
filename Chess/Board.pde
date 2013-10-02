@@ -12,16 +12,17 @@ public class Board {
       }
     }
     pawnImage = loadImage("pion_black.png");
-    board[6][6].piece = new Pawn(board[6][6],true);
+    board[6][6].piece = new Pawn(true);
     println(board[6][6].piece.isDark);
   }
   
   /* Will move a piece to a new location
    * will return true if the move was succesful
    * but will return false if the move was not */
-  public boolean move(int row, int col) {
-    if(isLegalMove(row,col)) {
-      board.board[row][col].piece = this; // Assign the new Square to the Piece object
+  public boolean move(int fRow, int fCol, int row, int col) {
+    if(getSquare(fRow,fCol).piece.isLegalMove(fRow,fCol,row,col)) {
+      getSquare(row,col).piece = getSquare(fRow,fCol).piece; // Assign the new Square to the Piece object
+      getSquare(fRow,fCol).piece = null; // Remove piece from old square
       return true; // The move was succesful
     }
     return false;

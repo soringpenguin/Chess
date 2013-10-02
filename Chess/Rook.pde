@@ -1,10 +1,10 @@
 public class Rook extends Piece {
   
-  public Rook(Square square, boolean isDark) {
-   super(square,isDark); 
+  public Rook(boolean isDark) {
+   super(isDark); 
   }
   
-  public boolean isLegalMove(Square square,int row, int col) {
+  public boolean isLegalMove(int fRow, int fCol, int row, int col) {
    return true; 
   }
   
