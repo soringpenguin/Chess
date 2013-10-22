@@ -11,11 +11,13 @@ public class Pawn extends Piece {
      println(fRow);
      println(row + ", " + col);
      println(board.isSquareEmpty(row,col));
-     if(fRow-1 == row && board.isSquareEmpty(row,col)) {
+     if(fRow-1 == row && fCol == col && board.isSquareEmpty(row,col)) {
+       print("Pawn moves forward");
        return true;
      }
      // Check to see if the pawn is trying to capture a piece on the diagonal
-     else if(fRow-1 == row && (fCol-1 == col || fCol-1 == col) && board.isSquareEmpty(row,col)) {
+     else if(fRow-1 == row && (fCol-1 == col || fCol-1 == col) && !board.isSquareEmpty(row,col)) {
+       print("Pawn moves diagonally");
        return true;
      }
      // The piece must be trying to make an illegal move
