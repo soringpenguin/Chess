@@ -38,7 +38,7 @@ void draw() {
         if(board.board[row][col].piece.isDark)
           fill(0,128);
         else
-          fill(255);
+          fill(255,128);
       }
       rect(col*inc,row*inc,inc,inc);
       counter++;

@@ -13,6 +13,7 @@ public class Board {
     }
     pawnImage = loadImage("pion_black.png");
     board[6][6].piece = new Pawn(true);
+    board[1][6].piece = new Pawn(false);
     println(board[6][6].piece.isDark);
   }
   
