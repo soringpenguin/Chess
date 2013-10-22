@@ -12,10 +12,7 @@ public class Board {
       }
     }
     pawnImage = loadImage("pion_black.png");
-    board[7][6].piece = new Knight(true,"N");
-    board[6][6].piece = new Pawn(true,"P");
-    board[1][6].piece = new Pawn(false,"P");
-    println(board[6][6].piece.isDark);
+    setupBoard();
   }
   
   /* Will move a piece to a new location
@@ -38,6 +35,33 @@ public class Board {
   // Will return true if a piece is on the given square and false if nothing is there
   boolean isSquareEmpty(int row, int col) {
     return board[row-1][col-1].piece == null;
+  }
+  
+  private void setupBoard() {
+    board[0][0].piece = new Rook(false,"R");
+    board[0][1].piece = new Knight(false,"N");
+    board[0][2].piece = new Bishop(false,"B");
+    board[0][3].piece = new Queen(false,"Q");
+    board[0][4].piece = new King(false,"K");
+    board[0][5].piece = new Bishop(false,"B");
+    board[0][6].piece = new Knight(false,"N");
+    board[0][7].piece = new Rook(false,"R");
+    
+    for(int i = 0; i < 8; i++)
+      board[1][i].piece = new Pawn(false,"P");
+      
+    for(int i = 0; i < 8; i++)
+      board[6][i].piece = new Pawn(true,"P");
+      
+    board[7][0].piece = new Rook(true,"R");
+    board[7][1].piece = new Knight(true,"N");
+    board[7][2].piece = new Bishop(true,"B");
+    board[7][3].piece = new Queen(true,"Q");
+    board[7][4].piece = new King(true,"K");
+    board[7][5].piece = new Bishop(true,"B");
+    board[7][6].piece = new Knight(true,"N");
+    board[7][7].piece = new Rook(true,"R");
+
   }
   
 }
