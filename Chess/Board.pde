@@ -37,6 +37,15 @@ public class Board {
     return board[row-1][col-1].piece == null;
   }
   
+  private void clear() {
+   
+   for(int i = 0; i < 8; i++) {
+    for(int j = 0; j < 8; j++) {
+      board[i][j].piece = null;
+    }
+   } 
+  }
+  
   private void setupBoard() {
     board[0][0].piece = new Rook(false,"R");
     board[0][1].piece = new Knight(false,"N");

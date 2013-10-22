@@ -74,5 +74,11 @@ void mousePressed() {
     }
   }
   
+}
   
+void keyPressed() {
+ if(key == 'r')
+   board.setupBoard();
+ else if(key == 'c')
+   board.clear();  
 }
