@@ -12,8 +12,9 @@ public class Board {
       }
     }
     pawnImage = loadImage("pion_black.png");
-    board[6][6].piece = new Pawn(true);
-    board[1][6].piece = new Pawn(false);
+    board[7][6].piece = new Knight(true,"N");
+    board[6][6].piece = new Pawn(true,"P");
+    board[1][6].piece = new Pawn(false,"P");
     println(board[6][6].piece.isDark);
   }
   

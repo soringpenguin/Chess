@@ -42,6 +42,12 @@ void draw() {
       }
       rect(col*inc,row*inc,inc,inc);
       counter++;
+      // Print name of piece over the square
+      if(board.board[row][col].piece != null) {
+        fill(0);
+        textSize(36);
+        text(board.board[row][col].piece.name,col*inc + (inc/3),row*inc + (inc/1.5));
+      }
     }
   }  
 }
@@ -53,10 +59,9 @@ void mousePressed() {
   
   // If trying to make a move
   if(selectedSquare != null) {
-    if(board.move(selectedSquare.row, selectedSquare.col,row,col))
-      selectedSquare = null;
-    else
+    if(!board.move(selectedSquare.row, selectedSquare.col,row,col))
       println("move failed");
+    selectedSquare = null;
   }
   // If just selecting a piece to move
   else {

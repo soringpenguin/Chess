@@ -3,13 +3,16 @@ public abstract class Piece {
   boolean isDark;
   boolean isLight; 
   
-  public Piece(boolean isDark) {
+  String name;
+  
+  public Piece(boolean isDark, String name) {
     this.isDark = false;
     this.isLight = false;
     if(isDark)
       this.isDark = true;
     if(!isDark)
       this.isLight = true;
+    this.name = name;
   }
   
   /* Will determine if the piece can be moved to the given square
