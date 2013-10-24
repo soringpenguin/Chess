@@ -3,6 +3,7 @@ public class Board {
   private Square[][] board;
   int numRows = 8;
   int numCols = 8;
+  boolean whiteOnBottom = true;
   
   public Board() {
     board = new Square[numRows][numCols];

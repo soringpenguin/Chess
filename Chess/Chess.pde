@@ -33,20 +33,28 @@ void draw() {
         strokeWeight(5);
       else
         strokeWeight(1);
-      rect(col*inc,row*inc,inc,inc);
-      if(board.board[row][col].piece != null) {
-        if(board.board[row][col].piece.isDark)
-          fill(0,128);
-        else
-          fill(255,128);
-      }
-      rect(col*inc,row*inc,inc,inc);
+      int tempRow = row;
+      if(board.whiteOnBottom)
+        tempRow = flipYs(row,8);
+        
+      rect(col*inc,tempRow*inc,inc,inc);
+
+//      if(board.board[row][col].piece != null) {
+//        if(board.board[row][col].piece.isDark)
+//          fill(0,128);
+//        else
+//          fill(255,128);
+//      }
+//      rect(col*inc,row*inc,inc,inc);
       counter++;
       // Print name of piece over the square
       if(board.board[row][col].piece != null) {
-        fill(0);
+        if(board.board[row][col].piece.isDark)
+          fill(0);
+        else
+          fill(255);
         textSize(36);
-        text(board.board[row][col].piece.name,col*inc + (inc/3),row*inc + (inc/1.5));
+        text(board.board[row][col].piece.name,col*inc + (inc/3),tempRow*inc + (inc/1.5));
       }
     }
   }  
@@ -80,5 +88,18 @@ void keyPressed() {
  if(key == 'r')
    board.setupBoard();
  else if(key == 'c')
-   board.clear();  
+   board.clear();
+ else if(key == 'f')
+   board.whiteOnBottom = !board.whiteOnBottom;  
+}
+
+int flipYs(int j, int gridSize) {
+  int tempJ = 0;
+  for(int i = 0; i < gridSize; i++) {
+    if(j == i) {
+      tempJ = gridSize-(i+1);
+      break;
+    }
+  }
+  return tempJ;
 }
