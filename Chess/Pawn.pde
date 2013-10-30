@@ -3,6 +3,9 @@ public class Pawn extends Piece {
   private boolean isOnOriginalSquare;
   private boolean hasJustMoved;
   private boolean firstMove;
+  private int enPassantDarkCaptureRow = 3;
+  private int enPassantLightCaptureRow = 6;
+  private boolean isEnPassantMove;
   
   public Pawn(boolean isDark, String name) {
    super(isDark,name);
@@ -11,6 +14,7 @@ public class Pawn extends Piece {
    
    hasJustMoved = false;
    firstMove = true;
+   isEnPassantMove = false;
   }
   
   public boolean isLegalMove(int fRow, int fCol, int row, int col) {
@@ -28,6 +32,19 @@ public class Pawn extends Piece {
      else if(fRow-1 == row && (fCol-1 == col || fCol+1 == col) && !board.isSquareEmpty(row,col) && board.getSquare(row,col).piece.isLight) {
        print("Dark Pawn moves diagonally");
        return true;
+     }
+     // Check for "en passant" capturing rule
+     else if (enPassantDarkCaptureRow == row && (fCol-1 == col || fCol+1 == col) && board.isSquareEmpty(row,col)) {
+       if(!board.isSquareEmpty(row+1,col) && board.getSquare(row+1,col).piece instanceof Pawn && ((Pawn)board.getSquare(row+1,col).piece).hasJustMoved) {
+         println("En Passant yes");
+         isEnPassantMove = true;
+         return true;
+       }
+       else {
+         println("\n" + !board.isSquareEmpty(row-1,col));
+         println("En Passant No");
+         return false;
+       }
      }
      // Check for first move trying to move two squares
      else if(firstMove && fRow-2 == row && fCol == col && board.isSquareEmpty(row,col)) {
@@ -53,6 +70,19 @@ public class Pawn extends Piece {
      else if(fRow+1 == row && (fCol-1 == col || fCol+1 == col) && !board.isSquareEmpty(row,col) && board.getSquare(row,col).piece.isDark) {
        print("Light Pawn moves diagonally");
        return true;
+     }
+     // Check for "en passant" capturing rule
+     else if (enPassantLightCaptureRow == row && (fCol-1 == col || fCol+1 == col) && board.isSquareEmpty(row,col)) {
+       if(!board.isSquareEmpty(row-1,col) && board.getSquare(row-1,col).piece instanceof Pawn && ((Pawn)board.getSquare(row-1,col).piece).hasJustMoved) {
+         println("En Passant yes");
+         isEnPassantMove = true;
+         return true;
+       }
+       else {
+         println("\n" + !board.isSquareEmpty(row-1,col));
+         println("En Passant No");
+         return false;
+       }
      }
      // Check for first move trying to move two squares
      else if(firstMove && fRow+2 == row && fCol == col && board.isSquareEmpty(row,col)) {
