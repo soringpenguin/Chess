@@ -23,6 +23,16 @@ public class Board {
     if(getSquare(fRow,fCol).piece.isLegalMove(fRow,fCol,row,col)) {
       getSquare(row,col).piece = getSquare(fRow,fCol).piece; // Assign the new Square to the Piece object
       getSquare(fRow,fCol).piece = null; // Remove piece from old square
+      // Logic used in the en passent rule
+      Piece piece = getSquare(row,col).piece;
+      if(piece instanceof Pawn) {
+        if(((Pawn)piece).firstMove) {
+          ((Pawn)piece).hasJustMoved = true;
+          ((Pawn)piece).firstMove = false;
+        }
+        else
+          ((Pawn)piece).hasJustMoved = false;
+      }
       return true; // The move was succesful
     }
     return false;

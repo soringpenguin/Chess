@@ -1,7 +1,16 @@
 public class Pawn extends Piece {
   
+  private boolean isOnOriginalSquare;
+  private boolean hasJustMoved;
+  private boolean firstMove;
+  
   public Pawn(boolean isDark, String name) {
-   super(isDark,name); 
+   super(isDark,name);
+   isOnOriginalSquare = true; // The first square it is on is always its orginal square
+   // May need to change to its standard starting square only
+   
+   hasJustMoved = false;
+   firstMove = true;
   }
   
   public boolean isLegalMove(int fRow, int fCol, int row, int col) {
@@ -18,6 +27,11 @@ public class Pawn extends Piece {
      // Check to see if the pawn is trying to capture a piece on the diagonal
      else if(fRow-1 == row && (fCol-1 == col || fCol+1 == col) && !board.isSquareEmpty(row,col) && board.getSquare(row,col).piece.isLight) {
        print("Dark Pawn moves diagonally");
+       return true;
+     }
+     // Check for first move trying to move two squares
+     else if(firstMove && fRow-2 == row && fCol == col && board.isSquareEmpty(row,col)) {
+       print("Dark Pawn moves forward two squares");
        return true;
      }
      // The piece must be trying to make an illegal move
@@ -38,6 +52,11 @@ public class Pawn extends Piece {
      // Check to see if the pawn is trying to capture a piece on the diagonal
      else if(fRow+1 == row && (fCol-1 == col || fCol+1 == col) && !board.isSquareEmpty(row,col) && board.getSquare(row,col).piece.isDark) {
        print("Light Pawn moves diagonally");
+       return true;
+     }
+     // Check for first move trying to move two squares
+     else if(firstMove && fRow+2 == row && fCol == col && board.isSquareEmpty(row,col)) {
+       print("Light Pawn moves forward two squares");
        return true;
      }
      // The piece must be trying to make an illegal move
