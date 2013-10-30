@@ -5,6 +5,8 @@ public class Board {
   int numCols = 8;
   boolean whiteOnBottom = true;
   private ArrayList<Pawn> allPawns; // TODO make sure we remove the pawns when they get captured
+  private ArrayList<Piece> whitePieces;
+  private ArrayList<Piece> blackPieces;
   
   public Board() {
     board = new Square[numRows][numCols];
@@ -15,6 +17,8 @@ public class Board {
     }
     pawnImage = loadImage("pion_black.png");
     allPawns = new ArrayList<Pawn>(16);
+    whitePieces = new ArrayList<Piece>(16);
+    blackPieces = new ArrayList<Piece>(16);
     setupBoard();
   }
   
@@ -25,11 +29,24 @@ public class Board {
     if(getSquare(fRow,fCol).piece.isLegalMove(fRow,fCol,row,col)) {
       if(getSquare(fRow,fCol).piece instanceof Pawn && ((Pawn)getSquare(fRow,fCol).piece).isEnPassantMove) {
         // Remove pawn that is taken on en passant
-        if(getSquare(fRow,fCol).piece.isDark)
+        if(getSquare(fRow,fCol).piece.isDark) {
+          whitePieces.remove(getSquare(row+1,col).piece);
+          allPawns.remove(getSquare(row+1,col).piece);
           getSquare(row+1,col).piece = null;
-        else
-          getSquare(row-1,col).piece = null; 
+        }
+        else {
+          blackPieces.remove(getSquare(row-1,col).piece);
+          allPawns.remove(getSquare(row-1,col).piece);
+          getSquare(row-1,col).piece = null;
+        } 
       }
+      // Remove piece from list(s) of pieces
+      if(getSquare(row,col).piece instanceof Pawn)
+        allPawns.remove(getSquare(row,col).piece);
+      if(getSquare(fRow,fCol).piece.isDark)
+        whitePieces.remove(getSquare(row,col).piece);
+      else
+        blackPieces.remove(getSquare(row,col).piece);
       getSquare(row,col).piece = getSquare(fRow,fCol).piece; // Assign the new Square to the Piece object
       getSquare(fRow,fCol).piece = null; // Remove piece from old square
       
@@ -77,6 +94,14 @@ public class Board {
     board[0][5].piece = new Bishop(false,"B");
     board[0][6].piece = new Knight(false,"N");
     board[0][7].piece = new Rook(false,"R");
+    whitePieces.add(board[0][0].piece);
+    whitePieces.add(board[0][1].piece);
+    whitePieces.add(board[0][2].piece);
+    whitePieces.add(board[0][3].piece);
+    whitePieces.add(board[0][4].piece);
+    whitePieces.add(board[0][5].piece);
+    whitePieces.add(board[0][6].piece);
+    whitePieces.add(board[0][7].piece);
     
     for(int i = 0; i < 8; i++) {
       board[1][i].piece = new Pawn(false,"P");
@@ -95,6 +120,14 @@ public class Board {
     board[7][5].piece = new Bishop(true,"B");
     board[7][6].piece = new Knight(true,"N");
     board[7][7].piece = new Rook(true,"R");
+    blackPieces.add(board[7][0].piece);
+    blackPieces.add(board[7][1].piece);
+    blackPieces.add(board[7][2].piece);
+    blackPieces.add(board[7][3].piece);
+    blackPieces.add(board[7][4].piece);
+    blackPieces.add(board[7][5].piece);
+    blackPieces.add(board[7][6].piece);
+    blackPieces.add(board[7][7].piece);
 
   }
   
